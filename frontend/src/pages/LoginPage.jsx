@@ -28,27 +28,27 @@ export default function Login() {
             
             <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm flex flex-col gap-4">
                 <div className="relative">
-                <FiUser className="absolute left-4 top-4 text-gray-400" />
-                <input 
-                    {...register("email", { required: "Email wajib diisi" })}
-                    type="email" placeholder="Email"
-                    className="w-full border p-3 pl-12 rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none"
-                />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                    <FiUser className="absolute left-4 top-4 text-gray-400" />
+                    <input 
+                        {...register("email", { required: "Email wajib diisi" })}
+                        type="email" placeholder="Email"
+                        className="w-full border p-3 pl-12 rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none"
+                    />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                 </div>
 
                 <div className="relative">
-                <FiLock className="absolute left-4 top-4 text-gray-400" />
-                <input 
-                    {...register("password", { required: "Password wajib diisi", minLength: { value: 6, message: "Minimal 6 karakter" } })}
-                    type="password" placeholder="Password"
-                    className="w-full border p-3 pl-12 rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none"
-                />
-                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+                    <FiLock className="absolute left-4 top-4 text-gray-400" />
+                    <input 
+                        {...register("password", { required: "Password wajib diisi", minLength: { value: 6, message: "Minimal 6 karakter" } })}
+                        type="password" placeholder="Password"
+                        className="w-full border p-3 pl-12 rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none"
+                    />
+                    {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
                 </div>
 
                 <button className="bg-[#7B85CE] text-white py-3 rounded-xl font-bold mt-4 hover:bg-indigo-600 transition shadow-lg">
-                LOGIN
+                    LOGIN
                 </button>
             </form>
 
