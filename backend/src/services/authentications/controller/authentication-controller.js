@@ -36,7 +36,7 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.validated;
 
   try {
     // 1. Verifikasi kredensial email & password langsung di tingkat Repository
@@ -67,7 +67,7 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   try {
     // Menghapus cookie jwt di browser
-    res.cookie("jwt", "", { maxAge: 0 });
+    res.cookie("token", "", { maxAge: 0 });
     return response(res, 200, "Logout success", null);
   } catch (error) {
     console.error("Error in logout controller:", error.message);

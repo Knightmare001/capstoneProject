@@ -6,7 +6,7 @@ import response from "../utils/response.js"; // Helper response terpisah milikmu
 export const protectRoute = async (req, res, next) => {
   try {
     // 1. Ambil token dari HTTP-Only Cookie
-    const token = req.cookies.jwt;
+    const token = req.cookies.token;
 
     if (!token) {
       return response(res, 401, "Unauthorized - please login first", null);

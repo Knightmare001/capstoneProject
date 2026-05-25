@@ -34,3 +34,16 @@ export const getUserById = async (req, res, next) => {
 
   return response(res, 200, "User berhasil ditambahkan", user);
 };
+
+// untuk test postman
+export const deleteUserById = async (req, res, next) => {
+  const { id } = req.params;
+
+  const deletedUser = await UserRepositories.deleteUser(id);
+
+  if (!deletedUser) {
+    return res.status(404).json({ message: "User tidak ditemukan!" });
+  }
+
+  return res.status(200).json({ message: "User berhasil dihapus", data: deletedUser });
+};

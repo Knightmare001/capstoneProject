@@ -55,7 +55,21 @@ class UserRepository {
     const res = await query(sql, [id]);
     return res.rows[0];
   }
+
+  // untuk test postman
+  // 5. Menghapus user berdasarkan ID (Tambahan Baru)
+  async deleteUser(id) {
+    const sql = "DELETE FROM users WHERE id = $1 RETURNING id;";
+    const res = await query(sql, [id]);
+
+    // Jika baris yang terpengaruh (rows) kosong, berarti ID tidak ditemukan
+    if (res.rows.length === 0) {
+      return null;
+    }
+
+    // Mengembalikan data user yang berhasil dihapus (misal untuk log atau respon)
+    return res.rows[0];
+  }
 }
 
-// Export sebagai instance (Singleton) agar siap di-import langsung di controller
 export default new UserRepository();
