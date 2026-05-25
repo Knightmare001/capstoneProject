@@ -2,11 +2,12 @@
 
 * clone branch ini
 * pastikan menginstall python antara versi 3.10 sampe 3.13
-* membuat database dengan ketentuan berikut :
+* membuat env yang disesuai dengan database :
   ```
-  PGUSER=postgres
+  PGUSER= // nama user anda (biasanya untuk root 'postgres')
   PGHOST=localhost
-  PGPASSWORD=123
-  PGDATABASE=resignajadulu_db
+  PGPASSWORD= // password postgres
+  PGDATABASE= // nama database
   PGPORT=5432
   ```
+* 
