@@ -1,4 +1,4 @@
-# How to install
+# Cara install
 
 * clone branch ini
 * pastikan menginstall python antara versi 3.10 sampe 3.13
@@ -40,3 +40,7 @@
   ```
   uvicorn app:app --host 127.0.0.1 --port 8000 --reload
   ```
+
+  # cara simulasi backend
+  * import collection dan environment ke postman
+  * pastikan server AI dan backend menyala dan jalan run collection pada postman
