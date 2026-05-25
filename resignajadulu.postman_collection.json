@@ -1,0 +1,461 @@
+{
+  "info": {
+    "_postman_id": "4b0f727b-4b86-4d5c-bafe-3c3de8b29666",
+    "name": "resignajadulu",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34905623"
+  },
+  "item": [
+    {
+      "name": "Add User with Valid Payload Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('it should response 201 status code', () => {",
+              "    pm.expect(pm.response).to.have.status(201);",
+              "});",
+              "",
+              "pm.test('response Content-Type header should have application/json value', () => {",
+              "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');",
+              "});",
+              "",
+              "pm.test('response body should be an object', () => {",
+              "    const responseJson = pm.response.json();",
+              "    pm.expect(responseJson).to.be.an('object');",
+              "});",
+              "",
+              "pm.test('response body should have correct property and value', () => {",
+              "    const responseJson = pm.response.json();",
+              "    pm.expect(responseJson.status).to.equal('success');",
+              "    pm.expect(responseJson.data).to.be.an('object');",
+              "    pm.expect(responseJson.data.id).to.be.a('string');",
+              "    pm.environment.set('userId', responseJson.data.id);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('it should response 200 status code', () => {\r",
+              "    pm.expect(pm.response).to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test('response body should have success status', () => {\r",
+              "    const responseJson = pm.response.json();\r",
+              "    pm.expect(responseJson.status).to.equal('success');\r",
+              "    \r",
+              "    // Simpan userId dari body untuk keperluan GetByID dan Delete User\r",
+              "    pm.expect(responseJson.data.id).to.be.a('string');\r",
+              "    pm.environment.set('userId', responseJson.data.id);\r",
+              "});\r",
+              "\r",
+              "// TES COOKIE: Memastikan backend sukses mengirim cookie bernama 'jwt'\r",
+              "pm.test('Response should set cookie named jwt', () => {\r",
+              "    pm.expect(pm.cookies.has('token')).to.be.true;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by Id with Valid Id Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// pm.test('it should response 200 status code', () => {",
+              "//     pm.expect(pm.response).to.have.status(200);",
+              "// });",
+              "",
+              "// pm.test('response body should have correct property and value', () => {",
+              "//     const responseJson = pm.response.json();",
+              "//     const userId = pm.environment.get('userId');",
+              "//     pm.expect(responseJson.status).to.equal('success');",
+              "//     pm.expect(responseJson.data.name).to.equal('John Doe');",
+              "// });",
+              "",
+              "",
+              "pm.test('it should response 200 status code', () => {",
+              "    pm.expect(pm.response).to.have.status(200);",
+              "});",
+              "",
+              "pm.test('response Content-Type header should have application/json value', () => {",
+              "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');",
+              "});",
+              "",
+              "pm.test('response body should be an object', () => {",
+              "    const responseJson = pm.response.json();",
+              "    pm.expect(responseJson).to.be.an('object');",
+              "});",
+              "",
+              "pm.test('response body should contain correct user profile data', () => {",
+              "    const responseJson = pm.response.json();",
+              "    ",
+              "    // Memastikan status response sukses",
+              "    pm.expect(responseJson.status).to.equal('success');",
+              "    pm.expect(responseJson.data).to.be.an('object');",
+              "    ",
+              "    // Memastikan ID yang dikembalikan sama dengan ID yang kita minta di URL",
+              "    pm.expect(responseJson.data.id).to.equal(pm.environment.get('userId'));",
+              "    ",
+              "    // Memastikan data profil penting lainnya ada dan tipe datanya benar",
+              "    pm.expect(responseJson.data.name).to.be.a('string');",
+              "    pm.expect(responseJson.data.email).to.be.a('string');",
+              "    pm.expect(responseJson.data.created_at).to.be.a('string');",
+              "    ",
+              "    // Keamanan: Memastikan password tidak ikut bocor di dalam response API!",
+              "    pm.expect(responseJson.data.password).to.be.undefined;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:{{port}}/api/user/{{userId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "user",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by Id with Invalid Id Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('it should response 404 status code', () => {",
+              "    pm.expect(pm.response).to.have.status(404);",
+              "});",
+              "",
+              "pm.test('response body should have correct property and value', () => {",
+              "    const responseJson = pm.response.json();",
+              "    pm.expect(responseJson.status).to.equal('failed');",
+              "    pm.expect(responseJson.message).to.be.a('string');",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:{{port}}/api/user/xxx",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "user",
+            "xxx"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('it should response 200 status code', () => {\r",
+              "    pm.expect(pm.response).to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test('response body should have success status', () => {\r",
+              "    const responseJson = pm.response.json();\r",
+              "    pm.expect(responseJson.status).to.equal('success');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"monthlyIncome\": 5500,\r\n  \"jobRole\": 2,\r\n  \"overTime\": 1,\r\n  \"distanceFromHome\": 18,\r\n  \"totalWorkingYears\": 7,\r\n  \"numCompaniesWorked\": 3,\r\n  \"yearsAtCompany\": 4,\r\n  \"yearsInCurrentRole\": 2,\r\n  \"yearsSinceLastPromotion\": 1,\r\n  \"jobSatisfaction\": 2,\r\n  \"workLifeBalance\": 1,\r\n  \"stagnationIndex\": 3.5,\r\n  \"burnoutFlag\": 1,\r\n  \"yearsPerCompany\": 2.3,\r\n  \"overallSatisfaction\": 1.3,\r\n  \"environmentSatisfaction\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/application/analyze",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "application",
+            "analyze"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logout",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('it should response 200 status code', () => {\r",
+              "    pm.expect(pm.response).to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test('response body should confirm logout success', () => {\r",
+              "    const responseJson = pm.response.json();\r",
+              "    pm.expect(responseJson.status).to.equal('success');\r",
+              "});\r",
+              "\r",
+              "// Membersihkan token dari environment setelah berhasil logout\r",
+              "pm.test('clean up environment tokens', () => {\r",
+              "    pm.environment.unset('accessToken');\r",
+              "    // pm.environment.unset('userId'); // Buka komentar ini jika userId juga ingin dihapus saat logout\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:{{port}}/api/auth/logout",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "auth",
+            "logout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add User with Invalid Payload Copy",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let badUserPayloads = pm.environment.get('badUserPayloads');",
+              "",
+              "if (!badUserPayloads || badUserPayloads.length === 0) {",
+              "    badUserPayloads = [",
+              "        {},",
+              "        { name: 'John' },",
+              "        { name: 'John', email: 'invalid-email' },",
+              "        { name: 'John', email: 'john@example.com' },",
+              "        { name: 'John', email: 'john@example.com', password: '123' }",
+              "    ]",
+              "}",
+              "",
+              "const currentBadUserPayload = badUserPayloads.shift();",
+              "pm.environment.set('currentBadUserPayload', JSON.stringify(currentBadUserPayload));",
+              "pm.environment.set('badUserPayloads', badUserPayloads);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('it should response 400 status code', () => {",
+              "    pm.expect(pm.response).to.have.status(400);",
+              "});",
+              "",
+              "pm.test('response Content-Type header should have application/json value', () => {",
+              "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');",
+              "});",
+              "",
+              "pm.test('response body should be an object', () => {",
+              "    const responseJson = pm.response.json();",
+              "    pm.expect(responseJson).to.be.an('object');",
+              "});",
+              "",
+              "pm.test('response body should have correct property and value', () => {",
+              "    const responseJson = pm.response.json();",
+              "    pm.expect(responseJson.status).to.equal('failed');",
+              "    pm.expect(responseJson.message).to.be.a('string');",
+              "});",
+              "",
+              "const repeatRequestUntilDatasetEmpty = () => {",
+              "    const badUserPayloads = pm.environment.get('badUserPayloads');",
+              "    if(badUserPayloads && badUserPayloads.length > 0) {",
+              "        postman.setNextRequest('Add User with Invalid Payload');",
+              "    }",
+              "};",
+              "",
+              "repeatRequestUntilDatasetEmpty();"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{{currentBadUserPayload}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:{{port}}/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete user",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:{{port}}/api/user/{{userId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "user",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
