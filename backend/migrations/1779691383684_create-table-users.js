@@ -27,7 +27,7 @@ export const up = (pgm) => {
       notNull: true,
     },
     created_at: {
-      type: "timestamptz", // Sama dengan TIMESTAMP WITH TIME ZONE
+      type: "timestamptz",
       notNull: true,
       default: pgm.func("current_timestamp"),
     },
