@@ -1,18 +1,21 @@
 import express from "express";
 import env from "dotenv";
 env.config();
-import authRoutes from "./routes/auth.route.js";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import ErrorHandler from "./middleware/error.js";
+import routes from "./routes/index.js";
 
 const app = express();
 
+const HOST = process.env.HOST;
 const PORT = process.env.PORT;
 
 // ekstrak json data from body
 app.use(express.json());
 app.use(cookieParser());
+app.use(routes);
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -25,9 +28,8 @@ app.use(
   }),
 );
 
-app.use("/api/auth", authRoutes);
-
+app.use(ErrorHandler);
 app.listen(PORT, () => {
-  console.log(`server runing on port ${PORT}`);
+  console.log(`Server running at http://${HOST}:${PORT}`);
   connectDB();
 });

@@ -1,32 +1,43 @@
+// src/services/authentications/middleware/auth-middleware.js
 import jwt from "jsonwebtoken";
-import User from "../models/user.model.js";
+import UserRepository from "../services/users/repositories/user-repositories.js"; // Sesuaikan nama file repo kamu
+import response from "../utils/response.js"; // Helper response terpisah milikmu
 
 export const protectRoute = async (req, res, next) => {
   try {
+    // 1. Ambil token dari HTTP-Only Cookie
     const token = req.cookies.jwt;
 
     if (!token) {
-      return res.status(401).json({ message: "Unauthorized - please login first" });
+      return response(res, 401, "Unauthorized - please login first", null);
     }
 
+    // 2. Verifikasi keaslian token JWT
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (!decoded) {
-      return res.status(401).json({ message: "Token invalid" });
+      return response(res, 401, "Token invalid", null);
     }
 
-    const user = await User.findById(decoded.userId);
+    // 3. Cari data user ke PostgreSQL menggunakan Repository terpusat
+    const user = await UserRepository.findById(decoded.userId);
 
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      return response(res, 401, "User not found", null);
     }
 
-    delete user.password;
-
+    // 4. Tempel data user yang bersih ke objek request (req.user)
     req.user = user;
 
+    // 5. Lanjut ke controller berikutnya (misal: controller input data AI atau history)
     next();
   } catch (error) {
-    console.log("Error in auth middleware", error.message);
-    res.status(500).json({ message: "Internal server error" });
+    console.log("Error in auth middleware:", error.message);
+
+    // Jika token kedaluwarsa atau salah sign, jwt.verify akan melempar error ke block catch ini
+    if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
+      return response(res, 401, "Token invalid or expired", null);
+    }
+
+    return response(res, 500, "Internal server error", null);
   }
 };

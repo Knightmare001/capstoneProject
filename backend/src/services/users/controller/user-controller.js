@@ -3,7 +3,7 @@ import response from "../../../utils/response.js";
 import UserRepositories from "../repositories/user-repositories.js";
 
 export const createUser = async (req, res, next) => {
-  const { name, email, password, role } = req.validated;
+  const { name, email, password } = req.validated;
 
   const isEmailExist = await UserRepositories.verifyNewEmail(email);
 
@@ -15,7 +15,6 @@ export const createUser = async (req, res, next) => {
     name,
     email,
     password,
-    role,
   });
 
   if (!user) {
@@ -27,7 +26,7 @@ export const createUser = async (req, res, next) => {
 
 export const getUserById = async (req, res, next) => {
   const { id } = req.params;
-  const user = await UserRepositories.getUserById(id);
+  const user = await UserRepositories.findById(id);
 
   if (!user) {
     return next(new NotFoundError("User tidak ditemukan"));
