@@ -13,9 +13,6 @@ const HOST = process.env.HOST;
 const PORT = process.env.PORT;
 
 // ekstrak json data from body
-app.use(express.json());
-app.use(cookieParser());
-app.use(routes);
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -27,6 +24,9 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+app.use(express.json());
+app.use(cookieParser());
+app.use(routes);
 
 app.use(ErrorHandler);
 app.listen(PORT, () => {
