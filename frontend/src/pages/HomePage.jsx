@@ -74,7 +74,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="flex-1 bg-blue-500 flex items-center px-10 gap-6">
         <div className="flex-1">
-          <h1 className="text-white text-4x1 font-bold mb-6">Prediksi Resign Karyawan</h1>
+          <h1 className="text-white text-5xl font-bold mb-6">Prediksi Resign Karyawan</h1>
           <div className="flex gap-3">
             <button
               onClick={() => navigate("/analyze")}
@@ -90,7 +90,7 @@ export default function HomePage() {
             </button>
           </div>
         </div>
-        <div className="w-64 h-52 bg-blue-400 rounded-2xl flex items-center justify-center text-white text-sm">
+        <div className="w-104 h-102 bg-blue-400 rounded-2xl flex items-center justify-center text-white text-sm">
           buat gambar
         </div>
       </section>
