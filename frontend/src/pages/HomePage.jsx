@@ -66,7 +66,7 @@ export default function HomePage() {
             Mulai Analisis
           </button>
         </div>
-        <div className="w-1/2 h-130 bg-blue-400 rounded-2xl flex items-center justify-center text-white text-sm">
+        <div className="w-140 h-140 bg-blue-400 rounded-2xl flex items-center justify-center text-white text-sm">
           buat gambar
         </div>
       </section>

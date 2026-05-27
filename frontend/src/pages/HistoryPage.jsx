@@ -45,9 +45,9 @@ export default function HistoryPage() {
     : 0;
 
   return (
-    <main className="min-h-screen bg-[#EBF0F5] flex flex-col font-sans">
+    <main className="min-h-screen bg-blue-500 flex flex-col font-sans">
       <header className="bg-white/90 backdrop-blur-md border-b border-white/20 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-2xl mx-auto px-6 py-4 flex items-center gap-4">
+        <div className="max-w-2xl px-6 py-4 flex items-center gap-4">
           <button 
             onClick={() => navigate("/home")} 
             className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors border border-slate-50 shadow-sm"

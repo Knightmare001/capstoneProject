@@ -69,7 +69,7 @@ export default function ResultPage() {
   const bgGradient = isResign ? "from-red-50 via-orange-50 to-[#F5F7FF]" : "from-green-50 via-emerald-50 to-[#F5F7FF]";
 
   return (
-    <main className={`min-h-screen bg-gradient-to-br ${bgGradient} flex flex-col`}>
+    <main className={`min-h-screen bg-blue-500 flex flex-col`}>
       <header className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="font-bold text-slate-800 text-lg">Hasil Analisis</h1>
@@ -95,9 +95,9 @@ export default function ResultPage() {
             {result.suggestion}
           </div>
 
-          <div className="mt-3 text-xs text-slate-400">
+          {/* <div className="mt-3 text-xs text-slate-400">
             Raw prediction: {JSON.stringify(result)}
-          </div>
+          </div> */}
         </div>
 
         {/* Score Breakdown */}

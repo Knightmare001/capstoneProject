@@ -44,10 +44,10 @@ function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#E8EBF5] flex flex-col items-center justify-center p-8">
+    <main className="min-h-screen bg-blue-500 flex flex-col items-center justify-center p-8">
       {/* Logo */}
       <header className="w-full max-w-5xl mb-8">
-        <span className="bg-white px-6 py-2 rounded-full font-bold shadow-sm">apanihcik</span>
+        <span className="bg-white px-6 py-2 rounded-full font-bold shadow-sm">iniLogobanh</span>
       </header>
 
       {/* Card Utama */}

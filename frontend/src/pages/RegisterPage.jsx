@@ -42,7 +42,7 @@ function RegisterPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[#E8EBF5] flex flex-col items-center justify-center p-8">
+        <main className="min-h-screen bg-blue-500 flex flex-col items-center justify-center p-8">
              <div className="bg-white w-full max-w-xl rounded-[40px] shadow-2xl flex overflow-hidden min-h-[500px]">
                 <div className="flex-1 p-16 flex flex-col justify-center items-center">
                     <h1 className="text-3xl font-semibold mb-10">Register</h1>
