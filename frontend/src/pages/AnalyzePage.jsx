@@ -34,11 +34,6 @@ export default function AnalyzePage() {
     yearsInCurrentRole: "",
     yearsSinceLastPromotion: "",
     jobSatisfaction: 1,
-    workLifeBalance: 1,
-    stagnationIndex: 0,
-    burnoutFlag: 0,
-    yearsPerCompany: 0,
-    overallSatisfaction: 0,
     environmentSatisfaction: 1,
   });
 
@@ -49,17 +44,6 @@ export default function AnalyzePage() {
     e.preventDefault();
     setLoading(true);
     try {
-      // buat ngitung rata rata tahun  bretahan diperusahaan
-      const totalWorkingYears = Number(form.totalWorkingYears) || 0;
-      const numCompanies = Number(form.numCompaniesWorked) || 1;
-
-      const jobSat = Number(form.jobSatisfaction) || 0;
-      const wlb = Number(form.workLifeBalance) || 0;
-      const envSat = Number(form.environmentSatisfaction) || 0;
-
-      const calculatedYearsPerCompany = totalWorkingYears / numCompanies;
-      const calculatedOverallSatisfaction = (jobSat + wlb + envSat) / 3;
-      
       //payload buat backend dan ai
       const payload = {
         monthlyIncome: Number(form.monthlyIncome),
@@ -72,17 +56,11 @@ export default function AnalyzePage() {
         yearsInCurrentRole: Number(form.yearsInCurrentRole),
         yearsSinceLastPromotion: Number(form.yearsSinceLastPromotion),
         jobSatisfaction: Number(form.jobSatisfaction),
-        workLifeBalance: Number(form.workLifeBalance),
-        stagnationIndex: Number(form.stagnationIndex),
-        burnoutFlag: Number(form.burnoutFlag),
-        environmentSatisfaction: Number(form.environmentSatisfaction),
-      
-        yearsPerCompany: Number(calculatedYearsPerCompany.toFixed(2)),
-        overallSatisfaction: Number(calculatedOverallSatisfaction.toFixed(2)),
+        environmentSatisfaction: Number(form.environmentSatisfaction)
       };
       
       // ngirim ke backend
-      const res = await fetch(`${BASE_URL}/api/application/analyze`, {
+      const res = await fetch(`${BASE_URL}/api/application/analysis/career`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -180,12 +158,6 @@ export default function AnalyzePage() {
               </div>
             </SectionCard>
 
-            <SectionCard title="Indikator Karier" icon={<FiActivity />}>
-              <SliderInput label="Merasa karirmu mandeg / jalan di tempat?" name="stagnationIndex"
-                value={form.stagnationIndex} onChange={setField} min={0} max={10} step={0.1}
-                description="Indeks stagnasi karier karyawan" />
-            </SectionCard>
-
             <div className="flex gap-3">
               <button type="button" onClick={() => setStep(1)}
                 className="flex-1 py-4 bg-white text-slate-600 font-bold rounded-2xl border-2 border-slate-100">
@@ -206,9 +178,6 @@ export default function AnalyzePage() {
               <RatingInput label="Job Satisfaction" name="jobSatisfaction"
                 value={form.jobSatisfaction} onChange={setField}
                 description="Kepuasan terhadap pekerjaan itu sendiri" />
-              <RatingInput label="Work-Life Balance" name="workLifeBalance"
-                value={form.workLifeBalance} onChange={setField}
-                description="Keseimbangan antara pekerjaan dan kehidupan pribadi" />
               <RatingInput label="Environment Satisfaction" name="environmentSatisfaction"
                 value={form.environmentSatisfaction} onChange={setField}
                 description="Kepuasan terhadap lingkungan kerja" />
@@ -217,8 +186,6 @@ export default function AnalyzePage() {
             <SectionCard title="Status Kerja" icon={<FiClock />}>
               <ToggleInput label="Lembur (OverTime)" name="overTime" value={form.overTime}
                 onChange={setField} description="Apakah kamu sering lembur?" />
-              <ToggleInput label="Burnout" name="burnoutFlag" value={form.burnoutFlag}
-                onChange={setField} description="Apakah kamu merasa burnout?" />
             </SectionCard>
 
             <div className="flex gap-3">
@@ -228,7 +195,7 @@ export default function AnalyzePage() {
               </button>
               <button type="submit" disabled={loading}
                 className="flex-1 py-4 bg-gradient-to-r from-[#4F5DB3] to-[#7B85CE] text-white font-bold rounded-2xl flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-[#4F5DB3]/30">
-                {loading ? <><FiLoader className="animate-spin" /> Menganalisis...</> : <>🔍 Analisis Sekarang</>}
+                {loading ? <><FiLoader className="animate-spin" /> Menganalisis...</> : <> Analisis Sekarang</>}
               </button>
             </div>
           </div>
