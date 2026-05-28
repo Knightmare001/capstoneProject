@@ -74,7 +74,7 @@ export default function ResultPage() {
   return (
     <main className={`min-h-screen bg-blue-500 flex flex-col`}>
       <header className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-10">
-        <div className="max-w-lg mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="px-6 py-4 flex items-center justify-between relative">
           <h1 className="font-bold text-slate-800 text-lg">Hasil Analisis</h1>
           <button onClick={() => navigate("/home")} className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors">
             <FiHome size={20} />
@@ -87,17 +87,20 @@ export default function ResultPage() {
         <div className="bg-white rounded-3xl p-8 shadow-lg text-center">
           <ScoreGauge score={score} />
           <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold mb-4 ${
-            isResign ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"
+            workplaceAnalysis?.includes("tekanan kerja") ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"
           }`}>
-            {isResign ? <FiAlertTriangle size={16} /> : <FiCheckCircle size={16} />}
-            {isResign ? "POTENSI RESIGN TINGGI" : "KARYAWAN SETIA"}
+            {riskLevel}
           </div>
           <div className={`p-4 rounded-2xl text-sm font-medium leading-relaxed ${
-            isResign ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700"
+            workplaceAnalysis?.includes("tekanan kerja") ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700"
+            
           }`}>
-            {result.suggestion}
+           <p>{workplaceAnalysis}</p> 
           </div>
-
+          <div className="w-full mt-1 p-4 bg-slate-50 rounded-2xl border border-slate-100 text-left text-sm text-slate-600">
+            <span className="font-bold text-slate-700 block mb-1">Rekomendasi:</span>
+            <p>{recommendation}</p>
+          </div>
           {/* <div className="mt-3 text-xs text-slate-400">
             Raw prediction: {JSON.stringify(result)}
           </div> */}
@@ -110,7 +113,7 @@ export default function ResultPage() {
           <ScoreBar label="Sedang (40–69)" range={[40, 69]} score={score} color="bg-yellow-400" />
           <ScoreBar label="Tinggi (70–100)" range={[70, 100]} score={score} color="bg-red-400" />
           <p className="text-xs text-slate-400 mt-4 text-center">
-            Skor {score}% menunjukkan probabilitas karyawan ini akan resign
+            Skor {score}% {workplaceAnalysis}
           </p>
         </div>
 
@@ -124,9 +127,7 @@ export default function ResultPage() {
               <DataChip label="Di Perusahaan Ini" value={`${formData.yearsAtCompany} tahun`} />
               <DataChip label="Sejak Promosi" value={`${formData.yearsSinceLastPromotion} tahun`} />
               <DataChip label="Lembur" value={formData.overTime === 1 ? "Ya" : "Tidak"} highlight={formData.overTime === 1} />
-              <DataChip label="Burnout" value={formData.burnoutFlag === 1 ? "Ya" : "Tidak"} highlight={formData.burnoutFlag === 1} />
               <DataChip label="Job Satisfaction" value={`${formData.jobSatisfaction}/4`} />
-              <DataChip label="Work-Life Balance" value={`${formData.workLifeBalance}/4`} />
             </div>
           </div>
         )}
