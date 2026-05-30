@@ -47,8 +47,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
-      <nav className="bg-white px-6 py-4 flex justify-between items-center relative">
-        <p className="font-bold">ResignAjaDulu</p>
+      {/*bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-10*/}
+      <nav className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-10 px-6 py-4 flex justify-between items-center">
+        <p className="font-bold text-gray-800 text-lg">ResignAjaDulu</p>
         {navButton}
       </nav>
 
@@ -63,7 +64,7 @@ export default function HomePage() {
             onClick={() => isLoggedIn ? navigate("/analyze") : navigate("/login")}
             className="bg-blue-400 text-white px-5 py-2 rounded-full text-sm"
           >
-            Mulai Analisis
+            Analisis Karir
           </button>
         </div>
         <div className="w-140 h-140 bg-blue-400 rounded-2xl flex items-center justify-center text-white text-sm">

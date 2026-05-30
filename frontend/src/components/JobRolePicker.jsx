@@ -1,13 +1,12 @@
 const JOB_ROLES = [
-  { value: 0, label: "Human Capital RRserepresentafive", icon: "🤝", desc: "Human Capital Representative" },
-  { value: 1, label: "Human Resources", icon: "👥", desc: "Human Resources" },
-  { value: 2, label: "Lab Tech", icon: "🔬", desc: "Laboratory Technician" },
-  { value: 3, label: "Manager", icon: "💼", desc: "Manager" },
-  { value: 4, label: "Manufactoring Director", icon: "🏭", desc: "Manufacturing Director" },
-  { value: 5, label: "Research Director", icon: "📊", desc: "Research Director" },
-  { value: 6, label: "Research Scientist", icon: "🧪", desc: "Research Scientist" },
-  { value: 7, label: "Sales Exec", icon: "📈", desc: "Sales Executive" },
-  { value: 8, label: "Sales Rep", icon: "🛒", desc: "Sales Representative" },
+  { value: "software_engineer", label: "Software Engineer", icon: "💻" },
+  { value: "data_analyst", label: "Data Analyst", icon: "📊" },
+  { value: "digital_marketing", label: "Digital Marketing", icon: "📱" },
+  { value: "content_creator", label: "Content Creator", icon: "✍️" },
+  { value: "sales_executive", label: "Sales Executive", icon: "📈" },
+  { value: "sales_representative", label: "Sales Representative", icon: "🛒" },
+  { value: "admin_hr", label: "Admin / HR", icon: "👥" },
+  { value: "project_manager", label: "Project Manager", icon: "💼" },
 ];
 
 export default function JobRolePicker({ value, onChange }) {

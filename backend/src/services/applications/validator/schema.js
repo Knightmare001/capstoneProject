@@ -3,7 +3,7 @@ import Joi from "joi";
 
 export const AnalysisCareerPayloadSchema = Joi.object({
   monthlyIncome: Joi.number().positive().required(),
-  jobRole: Joi.number().integer().min(0).required(),
+  jobRole: Joi.string().valid('software_engineer', 'data_analyst', 'digital_marketing', 'content_creator', 'sales_executive', 'sales_representative', 'admin_hr', 'project_manager').required(),
   overTime: Joi.number().integer().valid(0, 1).required(),
   distanceFromHome: Joi.number().min(0).required(),
   totalWorkingYears: Joi.number().min(0).required(),
