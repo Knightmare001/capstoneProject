@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function ScoreGauge({ score }) {
+export default function ScoreGauge({ score, customColor }) {
   const [animScore, setAnimScore] = useState(0);
 
   useEffect(() => {
@@ -17,7 +17,10 @@ export default function ScoreGauge({ score }) {
     return () => clearInterval(timer);
   }, [score]);
 
-  const scoreColor = score >= 70 ? "#EF4444" : score >= 40 ? "#F59E0B" : "#22C55E";
+  // Jika customColor dikirim dari parent, gunakan itu. 
+  // Jika tidak, gunakan logika bawaan (Tinggi = Merah).
+  const scoreColor = customColor || (score >= 70 ? "#EF4444" : score >= 40 ? "#F59E0B" : "#22C55E");
+  
   const radius = 90;
   const circumference = Math.PI * radius;
 
@@ -38,13 +41,14 @@ export default function ScoreGauge({ score }) {
           strokeDashoffset={circumference - (animScore / 100) * circumference}
           style={{ transition: "stroke-dashoffset 0.05s linear" }}
         />
+        {/* Menggunakan variabel CSS agar selaras dengan tema */}
         <text x="110" y="95" textAnchor="middle" fontSize="36" fontWeight="800"
-          fill={scoreColor} fontFamily="system-ui">
-          {animScore}
+          fill={scoreColor} style={{ fontFamily: "var(--font-heading)" }}>
+          {animScore}%
         </text>
         <text x="110" y="115" textAnchor="middle" fontSize="12" fill="#94A3B8"
-          fontFamily="system-ui">
-          dari 100
+          style={{ fontFamily: "var(--font-sans)", fontWeight: "600" }}>
+          Match Rate
         </text>
       </svg>
     </div>

@@ -1,2 +1,33 @@
 /* src/index.css */
 @import "tailwindcss";
+
+@theme {
+  /* Pengaturan Font */
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+
+  /* Palet Alternatif Tim: Sky Blue & Emerald */
+  --color-background: #F8FAFC; /* Slate 50 - Putih bersih dengan hint biru yang sangat tipis */
+  --color-text-main: #0F172A;  /* Slate 900 - Biru dongker super gelap, sangat tajam untuk teks */
+  
+  --color-primary: #0284C7;    /* Sky Blue - Biru profesional namun tetap vibrant untuk tombol/aksi */
+  --color-secondary: #10B981;  /* Emerald Green - Hijau segar untuk aksen, skor bagus, dan finansial */
+  
+  --color-accent: #E0F2FE;     /* Sky 100 - Biru pastel untuk latar belakang Card atau efek hover */
+
+  /* Warna Semantik (Khusus untuk Status, Alert, dan Hasil) */
+  --color-danger: #EF4444;     /* Merah Standar untuk error/risiko */
+  --color-success: #10B981;    /* Sama dengan secondary (Emerald), konsisten untuk status sukses */
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-text-main);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
