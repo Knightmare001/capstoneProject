@@ -65,3 +65,25 @@ export const AnalysisFinancialPayloadSchema = Joi.object({
     "any.required": "Skor stres kerja wajib diisi",
   }),
 });
+
+export const CompetencyPayloadSchema = Joi.object({
+  // Ekspektasi gaji harus berupa angka dan minimal 0
+  minExpectedSalary: Joi.number().min(0).required().messages({
+    "number.base": "Minimal gaji harus berupa angka",
+    "any.required": "Minimal gaji wajib diisi",
+  }),
+  maxExpectedSalary: Joi.number().min(0).required().messages({
+    "number.base": "Maximal gaji harus berupa angka",
+    "any.required": "Maximal gaji wajib diisi",
+  }),
+
+  // expectedSalary: Joi.number().required().messages({
+  //   "number.base": "Target gaji harus berupa angka",
+  //   "any.required": "Target gaji wajib diisi",
+  // }),
+  // Skill harus berupa array yang berisi teks (string)
+  userSkills: Joi.array().items(Joi.string().trim()).required().messages({
+    "array.base": "Format skill harus berupa array/daftar teks",
+    "any.required": "Daftar skill yang dikuasai wajib dikirim",
+  }),
+});

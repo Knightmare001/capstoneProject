@@ -36,6 +36,7 @@ export const checkResignReadiness = async (req, res) => {
     // 2. HITUNG 5 PARAMETER SISA SECARA OTOMATIS DI BACKEND
 
     // A. Hitung yearsPerCompany
+    const monthlyIncomeUSD = monthlyIncome / 16500;
     const numCompanies = Number(numCompaniesWorked);
     const yearsPerCompany = numCompanies > 0 ? Number(totalWorkingYears) / numCompanies : Number(yearsAtCompany);
 
@@ -68,7 +69,7 @@ export const checkResignReadiness = async (req, res) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        monthlyIncome: Number(monthlyIncome),
+        monthlyIncome: Number(monthlyIncomeUSD),
         jobRole: mappedJobRole,
         overTime,
         distanceFromHome: Number(distanceFromHome),
