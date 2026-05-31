@@ -153,7 +153,7 @@ export default function HistoryDetailPage() {
             Realitas <span className="text-primary">Kariermu</span> Saat Ini
           </h1>
           <p className="text-text-main/60 font-medium leading-relaxed max-w-2xl mx-auto">
-            Rekap analisis AI kondisi kerjamu sebagai{" "}
+            Rekap analisis kondisi kerjamu sebagai{" "}
             <strong>{JOB_ROLE_LABELS[career.job_role] || "Profesional"}</strong>{" "}
             beserta kesiapan finansialmu jika memutuskan untuk resign.
           </p>
