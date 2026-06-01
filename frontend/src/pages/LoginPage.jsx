@@ -34,7 +34,7 @@ function LoginPage() {
       }
     } catch (error) {
       console.error("Error fetching:", error);
-      alert("failed to connect to the server");
+      setErrorMsg("Gagal terhubung ke server")
     }
   };
 

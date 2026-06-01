@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiRefreshCw, FiClock, FiLoader, FiBriefcase, FiDollarSign, FiActivity, FiMessageSquare } from "react-icons/fi";
 import Navbar from '../components/Navbar';
 import ScoreGauge from '../components/ScoreGauge';
 import BaseCard from '../components/BaseCard';
@@ -14,6 +13,7 @@ export default function ResultPage() {
   const [formData, setFormData] = useState(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
     const stored = localStorage.getItem("analyzeResult");
@@ -86,7 +86,7 @@ export default function ResultPage() {
       });
       const careerData = await careerRes.json();
       if (!careerRes.ok) {
-        alert(careerData.message || "Gagal menyimpan riwayat karier.");
+        setSaveError(careerData.message || "Gagal menyimpan riwayat karier.");
         return;
       }
 
@@ -117,13 +117,13 @@ export default function ResultPage() {
       });
       const finData = await finRes.json();
       if (!finRes.ok) {
-        alert(finData.message || "Gagal menyimpan riwayat finansial.");
+        setSaveError(finData.message || "Gagal menyimpan riwayat finansial.");
         return;
       }
 
       setSaved(true);
       localStorage.removeItem("analyzeResult");
-    } catch { alert("Gagal terhubung ke server."); }
+    } catch { setSaveError("Gagal terhubung ke server."); }
     finally { setSaving(false); }
   };
 
@@ -226,7 +226,11 @@ export default function ResultPage() {
           </BaseCard>
 
         </div>
-
+        {saveError && (
+          <div className="bg-danger/10 border border-danger/20 text-danger text-sm text-center p-3 rounded-xl font-bold w-full">
+            {saveError}
+          </div>
+        )}
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center pt-8 border-t border-secondary/10">
           
           <button 

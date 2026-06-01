@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiBriefcase, FiClock, FiMapPin, FiTrendingUp, FiStar, FiActivity, FiDollarSign, FiChevronRight, FiArrowLeft, FiLoader, FiCheckCircle, FiShield } from "react-icons/fi";
 
 import SectionCard from "../components/SectionCard";
 import Field from "../components/Field";
@@ -23,6 +22,7 @@ export default function AnalyzePage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
+  const [errorMsg, setErrorMsg] = useState("");
   
   const [form, setForm] = useState({
     monthlyIncome: "",
@@ -109,7 +109,7 @@ export default function AnalyzePage() {
       navigate("/result");
       
     } catch (err) {
-      alert(err.message || "Gagal terhubung ke server. Periksa jaringan Anda.");
+      setErrorMsg(err.message || "Gagal terhubung ke server.");
     } finally {
       setLoading(false);
     }
@@ -330,7 +330,11 @@ export default function AnalyzePage() {
                     <ToggleInput label="Punya Side Hustle / Freelance?" name="hasSideHustle" value={form.hasSideHustle} onChange={setField} description="Ada pemasukan sampingan untuk bantalan sementara." />
                   </div>
                 </SectionCard>
-
+                {errorMsg && (
+                  <div className="bg-danger/10 border border-danger/20 text-danger text-sm text-center p-3 rounded-xl font-bold">
+                    {errorMsg}
+                  </div>
+                )}
                 <div className="flex gap-4">
                   <button type="button" onClick={() => setStep(2)}
                     className="flex-1 py-4 bg-white hover:bg-secondary/5 text-text-main font-bold rounded-2xl border-2 border-secondary/20 transition-colors flex items-center justify-center gap-2">
