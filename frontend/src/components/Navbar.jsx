@@ -61,9 +61,6 @@ export default function Navbar() {
               <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white text-[11px] font-black shrink-0">
                 {initials}
               </div>
-              <span className="text-sm font-bold text-text-main max-w-[100px] truncate hidden sm:block">
-                {user.name || "User"}
-              </span>
               <FiChevronDown
                 size={14}
                 className={`text-text-main/40 transition-transform duration-300 shrink-0 ${showDropdown ? "rotate-180" : ""}`}
@@ -92,7 +89,7 @@ export default function Navbar() {
                   className="w-full px-5 py-3.5 text-sm text-left text-text-main hover:bg-secondary/10 font-semibold flex items-center gap-3 transition-colors"
                 >
                   <FiSettings size={16} className="text-secondary" />
-                  Pengaturan Profil
+                  Profil & Riwayat
                 </button>
                 <button
                   onClick={handleLogout}

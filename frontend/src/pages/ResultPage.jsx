@@ -145,7 +145,7 @@ export default function ResultPage() {
   const gaugeColor = score >= 70 ? "#EF4444" : score >= 40 ? "#F59E0B" : "#10B981";
 
   return (
-    <main className="min-h-screen bg-background text-text-main flex flex-col font-sans relative overflow-x-hidden">
+    <main className="min-h-screen bg-background text-text-main flex flex-col font-sans relative">
       
       {/* Background Blobs */}
       <div className="absolute top-20 -left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -z-10" />

@@ -4,6 +4,8 @@ import { FiSearch, FiClock, FiLogOut, FiArrowRight } from 'react-icons/fi';
 import Navbar from '../components/Navbar';
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
+import HowItWork from '../components/HowItWork';
+import Features from '../components/Features';
 const BASE_URL = "http://localhost:5001";
 
 export default function HomePage() {
@@ -23,7 +25,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-text-main flex flex-col font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-background text-text-main flex flex-col font-sans relative">
       
       {/* Background Blobs Global */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-primary/15 rounded-full blur-3xl -z-10"></div>
@@ -103,7 +105,11 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+         
+        <Features />
 
+        <HowItWork />
+        
         {/* TEAM SECTION*/}
         <section className="px-6 lg:px-16 py-24 flex flex-col items-center justify-center bg-text-main text-background relative overflow-hidden mt-10">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary/20 via-text-main to-text-main opacity-80"></div>

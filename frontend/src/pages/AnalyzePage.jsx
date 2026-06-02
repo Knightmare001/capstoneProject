@@ -139,7 +139,7 @@ export default function AnalyzePage() {
   const flexFieldClass = "flex-1 min-w-[100%] sm:min-w-[240px]";
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10 text-text-main flex flex-col font-sans relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10 text-text-main flex flex-col font-sans relative">
       
       <div className="absolute top-10 left-10 w-72 h-72 bg-primary/15 rounded-full blur-3xl -z-10"></div>
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-3xl -z-10"></div>
