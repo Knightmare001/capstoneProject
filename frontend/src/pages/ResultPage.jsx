@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import ScoreGauge from '../components/ScoreGauge';
 import BaseCard from '../components/BaseCard';
+import { FiBriefcase, FiClock, FiMapPin, FiTrendingUp, FiStar, FiActivity, FiDollarSign, FiChevronRight, FiArrowLeft, FiLoader, FiCheckCircle, FiShield } from "react-icons/fi";
 
 const BASE_URL = "http://localhost:5001";
 

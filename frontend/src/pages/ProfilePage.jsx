@@ -19,7 +19,6 @@ function StatCard({ label, value, icon, bg, color }) {
 }
 
 const TYPE_CONFIG = {
-  // Career-only (belum ada analisis finansialnya)
   career: {
     icon: <FiActivity size={18} />,
     bg: "bg-primary/10 text-primary",
@@ -37,7 +36,7 @@ const TYPE_CONFIG = {
   combined: {
     icon: <FiDollarSign size={18} />,
     bg: "bg-secondary/10 text-secondary",
-    label: (item) => `Karier + Finansial`,
+    label: (item) => `Hasil Analisis`,
     score: (item) => Number(item.final_readiness_score),
     tag: "Lengkap",
     tagColor: "bg-secondary/10 text-secondary border-secondary/20",

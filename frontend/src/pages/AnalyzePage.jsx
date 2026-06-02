@@ -7,6 +7,7 @@ import RatingInput from "../components/RatingInput";
 import ToggleInput from "../components/ToggleInput";
 import JobRolePicker from "../components/JobRolePicker";
 import Navbar from "../components/Navbar";
+import { FiBriefcase, FiClock, FiMapPin, FiTrendingUp, FiStar, FiActivity, FiDollarSign, FiChevronRight, FiArrowLeft, FiLoader, FiCheckCircle, FiShield } from "react-icons/fi";
 
 const BASE_URL = "http://localhost:5001"; 
 
@@ -24,6 +25,11 @@ export default function AnalyzePage() {
   const [step, setStep] = useState(1);
   const [errorMsg, setErrorMsg] = useState("");
   
+  const formatRupiah = (val) => {
+    if (!val) return "";
+    return `Rp ${(Number(val) / 1_000_000).toFixed(1)} Jt`;
+  };
+
   const [form, setForm] = useState({
     monthlyIncome: "",
     jobRole: "",
@@ -284,28 +290,32 @@ export default function AnalyzePage() {
                 <SectionCard title="Finansial (IDR)" icon={<FiDollarSign />}>
                   <div className="flex flex-wrap gap-5 items-start">
                     <div className={flexFieldClass}>
-                      <Field label="Gaji Bulanan">
+                      <Field label="Gaji Bulanan" description="Total pendapatan bersih yang kamu terima">
                         <input type="number" name="monthlyIncome" value={form.monthlyIncome}
                           onChange={handleInput} required min="0" placeholder="cth: 8000000" className={inputClass} />
                       </Field>
+                      {form.monthlyIncome && <p className="text-xs text-primary font-bold pl-1 animate-in fade-in duration-300">{formatRupiah(form.monthlyIncome)} / bulan</p>}
                     </div>
                     <div className={flexFieldClass}>
-                      <Field label="Beban / Pengeluaran Pokok">
+                      <Field label="Pengeluaran Pokok Bulanan" description="Biaya hidup tiap bulan (makan, transport, dll)">
                         <input type="number" name="monthlyExpenses" value={form.monthlyExpenses}
                           onChange={handleInput} required min="0" placeholder="cth: 3000000" className={inputClass} />
                       </Field>
+                      {form.monthlyExpenses && <p className="text-xs text-primary font-bold pl-1 animate-in fade-in duration-300">{formatRupiah(form.monthlyExpenses)} / bulan</p>}
                     </div>
                     <div className={flexFieldClass}>
-                      <Field label="Cicilan / Utang Bulanan">
+                      <Field label="Cicilan / Utang Bulanan" description="Total tagihan yang ada perbulannya (PayLater, pinjol, dll)">
                         <input type="number" name="monthlyDebtObligations" value={form.monthlyDebtObligations}
                           onChange={handleInput} required min="0" placeholder="cth: 1500000" className={inputClass} />
                       </Field>
+                      {form.monthlyDebtObligations && <p className="text-xs text-primary font-bold pl-1 animate-in fade-in duration-300">{formatRupiah(form.monthlyDebtObligations)} / bulan</p>}
                     </div>
                     <div className={flexFieldClass}>
-                      <Field label="Total Tabungan Darurat" description="Jumlah aset tunai milikmu">
+                      <Field label="Tabungan Bulanan" description="uang yang rutin kamu sisihkan setiap bulan">
                         <input type="number" name="monthlySavings" value={form.monthlySavings}
-                          onChange={handleInput} required min="0" placeholder="cth: 20000000" className={inputClass} />
+                          onChange={handleInput} required min="0" placeholder="cth: 1000000" className={inputClass} />
                       </Field>
+                      {form.monthlySavings && <p className="text-xs text-primary font-bold pl-1 animate-in fade-in duration-300">{formatRupiah(form.monthlySavings)} / bulan</p>}
                     </div>
                   </div>
                 </SectionCard>

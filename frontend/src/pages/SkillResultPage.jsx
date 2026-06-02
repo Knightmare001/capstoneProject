@@ -82,7 +82,7 @@ export default function SkillResultPage() {
           <p className="mt-3 text-sm font-black uppercase tracking-[0.2em] text-text-main/50">
             Market Fit Score
           </p>
-          <span className={`mt-3 px-5 py-1.5 rounded-full border text-xs font-black uppercase tracking-wider ${
+          <span className={`mt-3 px-5 py-1.5 rounded-full  text-xs font-black uppercase tracking-wider ${
             isGood ? "bg-secondary/10 text-secondary border-secondary/20"
               : isWarning ? "bg-amber-50 text-amber-600 border-amber-200"
                 : "bg-danger/10 text-danger border-danger/20"
