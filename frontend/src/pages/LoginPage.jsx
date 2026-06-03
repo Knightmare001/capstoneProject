@@ -4,6 +4,8 @@ import useInput from "../hooks/useInput";
 import { FiUser, FiLock } from "react-icons/fi";
 import Illustration from "../assets/pilihan.jpeg";
 
+const BASE_URL = import.meta.env.VITE_BACKEND_SERVICE_URL;
+
 function LoginPage() {
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
@@ -15,7 +17,7 @@ function LoginPage() {
     setErrorMsg("");
 
     try {
-      const response = await fetch(`http://localhost:5001/api/auth/login`, {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,28 +36,27 @@ function LoginPage() {
       }
     } catch (error) {
       console.error("Error fetching:", error);
-      setErrorMsg("Gagal terhubung ke server")
+      setErrorMsg("Gagal terhubung ke server");
     }
   };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10 flex flex-col items-center justify-center p-4 sm:p-8 font-sans text-text-main">
-      
       <header className="w-full max-w-5xl mb-8 flex items-center gap-3">
-        <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-background font-bold text-xl drop-shadow-md">R</div>
+        <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-background font-bold text-xl drop-shadow-md">
+          R
+        </div>
         <p className="font-extrabold text-text-main text-2xl tracking-tight">ResignAjaDulu</p>
       </header>
 
       {/* Card Utama */}
       <div className="bg-white/95 backdrop-blur-sm w-full max-w-xl rounded-[40px] shadow-2xl border border-secondary/20 flex overflow-hidden min-h-[500px]">
-        
         {/* Sisi Kiri: Form */}
         <div className="flex-1 p-10 sm:p-16 flex flex-col justify-center items-center">
           <h1 className="text-3xl font-extrabold mb-1 tracking-tight text-text-main">Welcome back</h1>
           <p className="text-text-main/50 font-medium mb-10">Silakan masuk ke akun Anda</p>
 
           <form onSubmit={onSubmitHandler} className="w-full max-w-sm flex flex-col gap-5">
-            
             <div className="relative">
               <FiUser className="absolute left-4 top-4 text-text-main/40 text-lg" />
               <input
@@ -88,7 +89,7 @@ function LoginPage() {
                 {errorMsg}
               </div>
             )}
-            
+
             <button
               type="submit"
               className="bg-primary hover:bg-primary/90 text-background py-3.5 rounded-xl font-bold mt-2 shadow-lg shadow-primary/30 hover:-translate-y-0.5 transition-all"
