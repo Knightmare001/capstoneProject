@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import tflite_runtime.interpreter as tflite  # Menggantikan tensorflow utuh
+import ai_edge_litert.interpreter as tflite  # Nama import yang benar untuk Windows saat ini
 import joblib
 import numpy as np
 
