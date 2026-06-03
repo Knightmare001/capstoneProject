@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 pydantic
-tensorflow
 joblib
 scikit-learn
 numpy
+tflite-runtime
