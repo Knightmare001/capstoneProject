@@ -18,6 +18,8 @@ import {
   FiShield,
 } from "react-icons/fi";
 
+import ReactMarkdown from "react-markdown";
+
 const BASE_URL = import.meta.env.VITE_BACKEND_SERVICE_URL;
 
 export default function ResultPage() {
@@ -243,7 +245,7 @@ export default function ResultPage() {
           <BaseCard title="Saran Finansial">
             <div className="flex-1 flex items-start bg-background/40 p-5 rounded-3xl border border-secondary/10">
               <p className="text-[13px] font-semibold text-text-main/70 leading-relaxed italic relative pl-6 before:content-['“'] before:absolute before:left-0 before:-top-1 before:text-3xl before:text-primary/20 before:italic">
-                {finRecommendation}
+                <ReactMarkdown>{finRecommendation}</ReactMarkdown>
               </p>
             </div>
           </BaseCard>

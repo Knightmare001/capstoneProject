@@ -1,4 +1,7 @@
 import response from "../../../utils/response.js";
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI();
 
 export const checkFinancialReadiness = async (req, res) => {
   try {
@@ -53,23 +56,33 @@ export const checkFinancialReadiness = async (req, res) => {
     let finalStatus = "BELUM SIAP";
     let finalRecommendation = "";
 
-    const isOfficeToxic = stressScore >= 60;
+    const promptAI = `
+      Anda adalah Konsultan Karir dan Perencana Keuangan AI. 
+      Berikan analisis komprehensif (maksimal 3 kalimat) untuk pengguna yang sedang mempertimbangkan untuk resign dari pekerjaannya berdasarkan data berikut:
 
-    if (finalReadinessScore >= 75) {
-      finalStatus = "SIAP TOTAL";
-      finalRecommendation = isOfficeToxic
-        ? "Kondisi kantor sudah tidak sehat dan pondasi keuangan Anda sangat kokoh. Anda punya lampu hijau untuk resign dengan aman."
-        : "Keuangan Anda sangat mapan untuk mengambil langkah baru, meskipun kondisi tempat kerja Anda saat ini relatif aman.";
-    } else if (finalReadinessScore >= 50) {
-      finalStatus = "PERLU BACKUP PLAN";
-      finalRecommendation = isOfficeToxic
-        ? "Kantor Anda mulai tidak sehat, namun keuangan Anda pas-pasan untuk bertahan hidup. Sangat disarankan tidak resign secara impulsif sebelum mendapatkan kepastian surat kontrak (signed offer) di perusahaan baru."
-        : "Kondisi kerja Anda masih oke, dan keuangan Anda cukup stabil. Jika ingin resign untuk pindah jalur karir, siapkan backup plan atau selesaikan dulu masa transisi dengan matang.";
-    } else {
-      finalStatus = "BELUM SIAP";
-      finalRecommendation = isOfficeToxic
-        ? "Kantor Anda memang toxic, tapi tabungan Anda saat ini sangat riskan. Jika resign sekarang, Anda berisiko mengalami masalah finansial dalam waktu dekat. Tahan dulu sambil cari kerja sampingan atau apply lowongan baru."
-        : "Tahan dulu impuls Anda. Tingkat stres kerja masih wajar dan tabungan Anda belum mencukupi batas aman bertahan hidup tanpa kerjaan tetap.";
+      - Status Kesiapan Akhir: ${finalStatus} (Skor Keseluruhan: ${finalReadinessScore}/100)
+      - Tingkat Stres/Risiko Burnout Kerja: ${stressScore}% 
+      - Skor Keamanan Keuangan: ${financialSafetyScore}/100 (Dana Darurat bertahan: ${runwayMonths.toFixed(1)} bulan, Target aman: ${safeZone} bulan)
+      - Kepastian Karir Baru (Job Prospect): ${jobProspectStatus}
+      - Memiliki Side Hustle: ${hasSideHustle ? "Ya" : "Tidak"}
+
+      Berikan rekomendasi tindakan nyata yang objektif, empati namun tegas, menyangkut aspek mental kerja dan finansialnya.
+    `;
+
+    let finalRecommendation = "";
+    try {
+      const aiResponse = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: promptAI,
+      });
+      finalRecommendation = aiResponse.text.trim();
+    } catch (aiError) {
+      console.error("Gagal memanggil Gemini API, menggunakan fallback manual:", aiError.message);
+      // Fallback logic manual Anda yang lama jika API down
+      finalRecommendation =
+        stressScore >= 60
+          ? "Kantor Anda terindikasi kurang sehat, harap tinjau kembali tabungan Anda sebelum mengambil keputusan resign."
+          : "Kondisi keuangan atau stabilitas kerja Anda belum mencapai batas aman untuk resign saat ini.";
     }
 
     return response(res, 200, "Financial readiness successfully analyzed", {
