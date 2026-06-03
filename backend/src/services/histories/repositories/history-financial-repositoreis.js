@@ -52,7 +52,7 @@ const FinancialHistoryRepository = {
       ORDER BY created_at DESC;
     `;
     const { rows } = await query(text, [careerId]);
-    
+
     // Mengembalikan 1 baris data (karena hubungannya 1:1)
     return rows[0];
   },
@@ -65,9 +65,9 @@ const FinancialHistoryRepository = {
       ORDER BY f.created_at DESC;
     `;
     const { rows } = await query(text, [userId]);
-    
+
     return rows;
-  }
+  },
 };
 
 export default FinancialHistoryRepository;

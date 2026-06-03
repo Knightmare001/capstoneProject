@@ -66,13 +66,17 @@ const CareerHistoryRepository = {
     return filteredRows;
   },
 
-  async findById(id) {
+  async findById(id, owner) {
     const text = `
       SELECT * FROM histories_career
-      WHERE id = $1
+      WHERE id = $1 AND user_id = $2
       ORDER BY created_at DESC;
     `;
-    const { rows } = await query(text, [id]);
+    const { rows } = await query(text, [id, owner]);
+
+    if (rows.length === 0) {
+      return null;
+    }
 
     // membersihkan kolom data apa saja yang mau diberikan kepada user
     const { years_per_company, overall_satisfaction, ...cleanData } = rows[0];

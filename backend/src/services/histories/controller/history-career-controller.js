@@ -27,9 +27,10 @@ const getAllHistories = async (req, res) => {
 
 // Ambil Detail Berdasarkan ID (Internal saja, tidak di-export ke router)
 const getHistoryDetailById = async (req, res, id) => {
-  const careerHistory = await CareerHistoryRepository.findById(id);
+  const userId = req.user.id;
+  const careerHistory = await CareerHistoryRepository.findById(id, userId);
   if (!careerHistory) {
-    return response(res, 404, "User tidak ditemukan", null);
+    return response(res, 404, "Riwayat karir tidak ditemukan", null);
     // atau pakai middleware error: return next(new NotFoundError("..."));
   }
   return response(res, 200, "Fetch combined user histories success", careerHistory);
