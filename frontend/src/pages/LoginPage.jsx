@@ -5,21 +5,16 @@ import { FiUser, FiLock } from "react-icons/fi";
 import Illustration from "../assets/pilihan.jpeg";
 
 function LoginPage() {
-  //siapin state
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
   const [errorMsg, setErrorMsg] = useState("");
-  //siapin handler(ngerubah state) ketika disubmit
-
   const navigate = useNavigate();
 
   const onSubmitHandler = async (event) => {
-    //panggil fungsi agar page tidak kerefresh
     event.preventDefault();
     setErrorMsg("");
 
     try {
-      //kirim data ke api buat validasi
       const response = await fetch(`http://localhost:5001/api/auth/login`, {
         method: "POST",
         headers: {
@@ -32,33 +27,37 @@ function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("user", JSON.stringify(data));
-        navigate("/home");
+        localStorage.setItem("user", JSON.stringify(data.data));
+        navigate("/");
       } else {
         setErrorMsg(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Error fetching:", error);
-      alert("failed to connect to the server");
+      setErrorMsg("Gagal terhubung ke server")
     }
   };
 
   return (
-    <main className="min-h-screen bg-[#7A93AA] flex flex-col items-center justify-center p-8">
-      {/* Logo */}
-      <header className="w-full max-w-5xl mb-8">
-        <span className="bg-white px-6 py-2 rounded-full font-bold shadow-sm">apanihcik</span>
+    <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10 flex flex-col items-center justify-center p-4 sm:p-8 font-sans text-text-main">
+      
+      <header className="w-full max-w-5xl mb-8 flex items-center gap-3">
+        <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-background font-bold text-xl drop-shadow-md">R</div>
+        <p className="font-extrabold text-text-main text-2xl tracking-tight">ResignAjaDulu</p>
       </header>
 
       {/* Card Utama */}
-      <div className="bg-white w-full max-w-5xl rounded-[40px] shadow-2xl flex overflow-hidden min-h-[500px]">
+      <div className="bg-white/95 backdrop-blur-sm w-full max-w-xl rounded-[40px] shadow-2xl border border-secondary/20 flex overflow-hidden min-h-[500px]">
+        
         {/* Sisi Kiri: Form */}
-        <div className="flex-1 p-16 flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-semibold mb-10">Welcome back</h1>
+        <div className="flex-1 p-10 sm:p-16 flex flex-col justify-center items-center">
+          <h1 className="text-3xl font-extrabold mb-1 tracking-tight text-text-main">Welcome back</h1>
+          <p className="text-text-main/50 font-medium mb-10">Silakan masuk ke akun Anda</p>
 
-          <form onSubmit={onSubmitHandler} className="w-full max-w-sm flex flex-col gap-4">
+          <form onSubmit={onSubmitHandler} className="w-full max-w-sm flex flex-col gap-5">
+            
             <div className="relative">
-              <FiUser className="absolute left-4 top-4 text-gray-400" />
+              <FiUser className="absolute left-4 top-4 text-text-main/40 text-lg" />
               <input
                 type="email"
                 id="email"
@@ -66,12 +65,12 @@ function LoginPage() {
                 value={email}
                 onChange={onChangeEmail}
                 required
-                className="w-full border p-3 pl-12 rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none"
+                className="w-full border-2 border-secondary/20 p-3 pl-12 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-text-main placeholder:text-text-main/30"
               />
             </div>
 
             <div className="relative">
-              <FiLock className="absolute left-4 top-4 text-gray-400" />
+              <FiLock className="absolute left-4 top-4 text-text-main/40 text-lg" />
               <input
                 type="password"
                 id="password"
@@ -79,31 +78,31 @@ function LoginPage() {
                 value={password}
                 onChange={onChangePassword}
                 required
-                className="w-full border p-3 pl-12 rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none"
+                minLength="6"
+                className="w-full border-2 border-secondary/20 p-3 pl-12 rounded-xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-text-main placeholder:text-text-main/30"
               />
             </div>
+
             {errorMsg && (
-              <div lassName="bg-red-100 text-red-600 text-sm text-center p-3 rounded-xl font-semibold">{errorMsg}</div>
+              <div className="bg-danger/10 border border-danger/20 text-danger text-sm text-center p-3 rounded-xl font-bold animate-in fade-in zoom-in-95 duration-200">
+                {errorMsg}
+              </div>
             )}
+            
             <button
               type="submit"
-              className="bg-[#7B85CE] text-white py-3 rounded-xl font-bold mt-4 hover:bg-indigo-600 transition shadow-lg"
+              className="bg-primary hover:bg-primary/90 text-background py-3.5 rounded-xl font-bold mt-2 shadow-lg shadow-primary/30 hover:-translate-y-0.5 transition-all"
             >
               LOGIN
             </button>
           </form>
 
-          <p className="mt-6 text-gray-500 text-sm">
-            Don't have account?
-            <Link to="/register" className="text-blue-500 cursor-pointer hover:underline">
+          <p className="mt-8 text-text-main/60 text-sm font-medium">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-primary font-bold hover:underline">
               Register
             </Link>
           </p>
-        </div>
-
-        {/* Sisi Kanan: Ilustrasi */}
-        <div className="flex-1 hidden md:flex items-center justify-center p-10">
-          <img src={Illustration} alt="Illustration" className="max-w-full" />
         </div>
       </div>
     </main>

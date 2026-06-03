@@ -1,2 +1,32 @@
 /* src/index.css */
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+
+  
+  --color-background: #F8FAFC; /*  Putih  */
+  --color-text-main: #0F172A;  /*  Biru dongker  untuk teks */
+  
+  --color-primary: #0284C7;    /* Sky Blue  untuk tombol */
+  --color-secondary: #10B981;  /* Emerald Green  untuk aksen, skor bagus, dan finansial */
+  
+  --color-accent: #E0F2FE;     /* Biru pastel untuk latar belakang Card atau efek hover */
+
+  /* Khusus untuk Status, Alert, dan Hasil*/
+  --color-danger: #EF4444;     /* Merah  */
+  --color-success: #10B981;    /* Emerald */
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-text-main);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
