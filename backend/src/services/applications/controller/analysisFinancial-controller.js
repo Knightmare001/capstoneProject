@@ -69,7 +69,6 @@ export const checkFinancialReadiness = async (req, res) => {
       Berikan rekomendasi tindakan nyata yang objektif, empati namun tegas, menyangkut aspek mental kerja dan finansialnya.
     `;
 
-    let finalRecommendation = "";
     try {
       const aiResponse = await ai.models.generateContent({
         model: "gemini-2.5-flash",
