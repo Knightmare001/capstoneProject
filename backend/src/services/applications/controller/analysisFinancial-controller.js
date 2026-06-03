@@ -1,7 +1,7 @@
 import response from "../../../utils/response.js";
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI();
+const ai = new GoogleGenAI({});
 
 export const checkFinancialReadiness = async (req, res) => {
   try {
