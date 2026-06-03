@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5001;
 // Ekstrak json data from body
 app.use(
   cors({
-    origin: "https://resignajadulu.vercel.app", // Nanti kalau frontend sudah deploy, tinggal ganti atau tambah URL-nya di sini
+    origin: "https://resignajadulu.vercel.app", // link frontend dari vercel
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization"],
