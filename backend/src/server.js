@@ -9,17 +9,14 @@ import routes from "./routes/index.js";
 
 const app = express();
 
-const HOST = process.env.HOST;
-const PORT = process.env.PORT;
+// Render secara otomatis menyediakan process.env.PORT. Jika di lokal, dia pakai 5001.
+const PORT = process.env.PORT || 5001;
 
-// ekstrak json data from body
+// Ekstrak json data from body
 app.use(
   cors({
-    origin: "http://localhost:5173",
-
-    // Izinkan pengiriman cookie/headers kredensial
+    origin: "http://localhost:5173", // Nanti kalau frontend sudah deploy, tinggal ganti atau tambah URL-nya di sini
     credentials: true,
-
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
@@ -29,7 +26,18 @@ app.use(cookieParser());
 app.use(routes);
 
 app.use(ErrorHandler);
-app.listen(PORT, () => {
-  console.log(`Server running at http://${HOST}:${PORT}`);
-  connectDB();
-});
+
+// Jalankan koneksi database sebelum listen agar jika ada error koneksi bisa ditangani dengan baik
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server successfully running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to start server due to DB connection error:", err);
+    // Tetap jalankan listen agar Render tidak mengalami 'Port scan timeout' meskipun DB bermasalah sementara
+    app.listen(PORT, () => {
+      console.log(`Server emergency running on port ${PORT} (DB Disconnected)`);
+    });
+  });
