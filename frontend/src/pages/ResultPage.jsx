@@ -170,9 +170,10 @@ export default function ResultPage() {
   const finScore = financialResult?.finalReadinessScore || 0;
   const finRunway = financialResult?.financialAnalysis?.runwayMonths || 0;
   const finRecommendation = financialResult?.recommendation || "Belum ada saran finansial.";
+  const safetyScore = financialResult?.financialAnalysis?.safetyScore || 0;
 
   // Logika Warna Gauge
-  const gaugeColor = score >= 70 ? "#EF4444" : score >= 40 ? "#F59E0B" : "#10B981";
+  const gaugeColor = score >= 70 ? "#10B981" : score >= 40 ? "#F59E0B" : "#EF4444";
 
   return (
     <main className="min-h-screen bg-background text-text-main flex flex-col font-sans relative">
@@ -198,7 +199,7 @@ export default function ResultPage() {
         {/*GAUGE SCORE & ANALISIS TEMPAT KERJA */}
         <div className="w-full flex flex-col items-center mb-14">
           <ScoreGauge
-            score={score}
+            score={safetyScore}
             customColor={gaugeColor}
             title="Tingkat Stres & Potensi Resign"
             statusText={`Status Resign: ${riskLevel}`}
