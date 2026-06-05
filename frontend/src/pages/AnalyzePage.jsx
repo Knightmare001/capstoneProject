@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 
 import SectionCard from "../components/SectionCard";
@@ -308,7 +307,7 @@ export default function AnalyzePage() {
                       </Field>
                     </div>
                     <div className={flexFieldClass}>
-                      <Field label="Jarak dari Rumah (km)" icon={<FiMapPin size={16} />}>
+                      <Field label="Jarak dari Rumah (km)">
                         <input
                           type="number"
                           name="distanceFromHome"

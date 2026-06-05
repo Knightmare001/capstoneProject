@@ -61,6 +61,10 @@ export const up = (pgm) => {
       type: "INTEGER",
       notNull: true,
     },
+    safety_score: {
+      type: "INTEGER",
+      notNull: true,
+    },
     created_at: {
       type: "timestamptz",
       notNull: true,

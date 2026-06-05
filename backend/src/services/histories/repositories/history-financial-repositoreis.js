@@ -8,12 +8,12 @@ const FinancialHistoryRepository = {
       INSERT INTO histories_financial (
         id, career_history_id, monthly_savings, monthly_expenses, monthly_debt_obligations,
         has_dependents, has_health_insurance, job_prospect_status, has_side_hustle,
-        workplace_stress_score, final_readiness_score
+        workplace_stress_score, final_readiness_score, safety_score
       )
       VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
       )
-      RETURNING id, career_history_id, final_readiness_score, created_at;
+      RETURNING id, career_history_id, final_readiness_score,safety_score, created_at;
     `;
 
     const values = [
@@ -28,6 +28,7 @@ const FinancialHistoryRepository = {
       data.hasSideHustle || false,
       data.workplaceStressScore,
       data.finalReadinessScore,
+      data.safety_score,
     ];
 
     const { rows } = await query(text, values);

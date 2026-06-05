@@ -134,7 +134,7 @@ export default function ResultPage() {
         // status:                 financialResult.status,
         // recommendation:         financialResult.recommendation,
         // runwayMonths:           financialResult.financialAnalysis?.runwayMonths,
-        // safetyScore:            financialResult.financialAnalysis?.safetyScore,
+        safety_score: financialResult.financialAnalysis?.safetyScore,
         // isSafe:                 financialResult.financialAnalysis?.isSafe,
       };
       const finRes = await fetch(`${BASE_URL}/api/histories/financial`, {
@@ -173,7 +173,7 @@ export default function ResultPage() {
   const safetyScore = financialResult?.financialAnalysis?.safetyScore || 0;
 
   // Logika Warna Gauge
-  const gaugeColor = score >= 70 ? "#10B981" : score >= 40 ? "#F59E0B" : "#EF4444";
+  const gaugeColor = finScore >= 70 ? "#10B981" : finScore >= 40 ? "#F59E0B" : "#EF4444";
 
   return (
     <main className="min-h-screen bg-background text-text-main flex flex-col font-sans relative">

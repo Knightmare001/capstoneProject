@@ -33,7 +33,7 @@ export const up = (pgm) => {
 
     // input from user
     monthly_income: {
-      type: "NUMERIC(10, 2)",
+      type: "NUMERIC",
       notNull: true,
     },
     job_role: {

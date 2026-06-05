@@ -162,7 +162,7 @@ export default function HistoryDetailPage() {
 
         <div className="w-full flex flex-col items-center mb-14">
           <ScoreGauge
-            score={score}
+            score={finScore}
             customColor={gaugeColor}
             title="Tingkat Stres & Potensi Resign"
             statusText={`Status Resign: ${career.risk_level}`}
@@ -174,7 +174,7 @@ export default function HistoryDetailPage() {
           <BaseCard title="Realitas Finansial">
             <div className="flex gap-4 flex-1">
               <div className="flex-1 text-center py-6 bg-background/50 rounded-3xl border border-secondary/10 flex flex-col justify-center">
-                <p className="text-4xl font-black text-text-main font-heading mb-1">{finScore || "-"}</p>
+                <p className="text-4xl font-black text-text-main font-heading mb-1">{financial.safety_score || "-"}</p>
                 <p className="text-[9px] font-black text-secondary uppercase tracking-widest">Skor Finansial</p>
               </div>
             </div>

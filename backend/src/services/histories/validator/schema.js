@@ -43,4 +43,5 @@ export const SaveHistoryFinancialPayloadSchema = Joi.object({
   hasSideHustle: Joi.boolean().default(false),
 
   workplaceStressScore: Joi.number().min(0).max(100).required(),
+  safety_score: Joi.number().min(0).max(100).required(),
 });
