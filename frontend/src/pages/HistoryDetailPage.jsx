@@ -127,11 +127,11 @@ export default function HistoryDetailPage() {
   if (!career) return null;
 
   const score = Number(career.score);
-  const gaugeColor = score >= 70 ? "#EF4444" : score >= 40 ? "#F59E0B" : "#10B981";
 
   // Fallback untuk antisipasi property penamaan snake_case atau camelCase dari backend
   const finScore = Number(financial?.final_readiness_score || financial?.finalReadinessScore || 0);
   const finRunway = financial?.runway_months || financial?.runwayMonths || "-";
+  const gaugeColor = finScore >= 70 ? "#10B981" : finScore >= 40 ? "#F59E0B" : "#EF4444";
 
   const prospectLabel = {
     NO_LEADS: "Belum Ada Bayangan",
