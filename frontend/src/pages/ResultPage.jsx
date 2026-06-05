@@ -205,7 +205,7 @@ export default function ResultPage() {
             statusText={`Status Resign: ${riskLevel}`}
           />
 
-          <p className="mt-4 text-sm font-black uppercase tracking-[0.2em] text-text-main/50 mb-8">Stress Level</p>
+          <p className="mt-4 text-sm font-black uppercase tracking-[0.2em] text-text-main/50 mb-8">Skor Siap Resign</p>
 
           {/* Analisis Tempat Kerja */}
           <div className="max-w-3xl w-full text-center px-4 flex flex-col items-center gap-3">
